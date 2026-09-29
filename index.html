@@ -316,7 +316,6 @@
             <input type="hidden" name="access_key" value="2148f247-aed1-4cfa-b8f2-bab324522f45">
             <input type="hidden" name="subject" value="Signed T&C Submission — St Paul's Christmas Market">
             <input type="hidden" name="from_name" value="Giraffe Event Spaces T&C Portal">
-            <input type="hidden" name="Signature Signed" id="sigStatusInput" value="YES — Digitally Confirmed">
 
             <div class="form-group">
                 <label for="bizName">Trading / Business Name:</label>
@@ -418,10 +417,6 @@
         btn.textContent = 'Generating PDF & Submitting...';
         btn.disabled = true;
 
-        if (hasDrawn) {
-            document.getElementById('sigStatusInput').value = "YES — Handwritten Signature Drawn on Form";
-        }
-
         const element = document.getElementById('tc-document');
         const bizName = document.getElementById('bizName').value || 'Trader';
         const pdfFilename = `TC_Agreement_${bizName.replace(/\s+/g, '_')}.pdf`;
@@ -438,9 +433,11 @@
         // Generate PDF and download for trader
         await html2pdf().set(opt).from(element).save();
 
-        // Submit form data to Web3Forms
+        // Submit form data dynamically to Web3Forms
         const formData = new FormData(form);
-        
+        const signatureStatus = hasDrawn ? "YES — Handwritten Signature Drawn" : "NO — Left Blank";
+        formData.append("Handwritten Signature Status", signatureStatus);
+
         try {
             await fetch(form.action, {
                 method: 'POST',
