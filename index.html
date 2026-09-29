@@ -223,6 +223,7 @@
 <script>
     async function handleFormSubmit(event) {
         event.preventDefault(); // Prevents page from redirecting before PDF downloads
+        window.scrollTo(0, 0);  // Forces page view to the very top so no black space is captured
         
         const form = event.target;
         const btn = form.querySelector('.btn-submit');
