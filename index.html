@@ -19,13 +19,12 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            display: flex;
-            justify-content: center;
+            display: block;
         }
 
         .container {
             max-width: 800px;
-            width: 100%;
+            margin: 0 auto;
             background: var(--bg-black);
             border: 1px solid var(--gold);
             padding: 30px;
@@ -37,6 +36,12 @@
         .logo-header {
             text-align: center;
             margin-bottom: 20px;
+        }
+
+        .logo-header img {
+            max-width: 180px;
+            height: auto;
+            margin-bottom: 10px;
         }
 
         .logo-header h1 {
@@ -170,10 +175,12 @@
 </head>
 <body>
 
-<div class="logo-header">
-    <img src="Gemini_Generated_Image_1b59p.jpeg" alt="Giraffe Event Spaces Logo" style="max-width: 180px; height: auto; margin-bottom: 10px;">
-    <h2>St Paul's Church Hall Christmas Market — Trader Terms & Conditions</h2>
-</div>
+<div class="container" id="tc-document">
+    <div class="logo-header">
+        <img src="Gemini_Generated_Image_1b59p.png" alt="Giraffe Event Spaces Logo">
+        <h1>Giraffe Event Spaces Ltd</h1>
+        <h2>St Paul's Church Hall Christmas Market — Trader Terms & Conditions</h2>
+    </div>
 
     <hr>
 
@@ -283,7 +290,7 @@
 <script>
     async function handleFormSubmit(event) {
         event.preventDefault();
-        window.scrollTo(0, 0); // Snaps to top so PDF starts on Page 1 with no blank space
+        window.scrollTo(0, 0);
         
         const form = event.target;
         const btn = form.querySelector('.btn-submit');
@@ -293,7 +300,6 @@
         const element = document.getElementById('tc-document');
         const bizName = document.getElementById('bizName').value || 'Trader';
         
-        // Generate PDF
         const opt = {
             margin:       [0.2, 0.2, 0.2, 0.2],
             filename:     `TC_Agreement_${bizName.replace(/\s+/g, '_')}.pdf`,
@@ -305,7 +311,6 @@
 
         await html2pdf().set(opt).from(element).save();
 
-        // Submit form data to Web3Forms
         const formData = new FormData(form);
         
         try {
