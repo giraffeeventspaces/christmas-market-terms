@@ -234,11 +234,12 @@
         
         // 1. Generate and Download PDF
         const opt = {
-            margin:       0.3,
+            margin:       [0.2, 0.2, 0.2, 0.2],
             filename:     `TC_Agreement_${bizName.replace(/\s+/g, '_')}.pdf`,
             image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, backgroundColor: '#0d0d0d' },
-            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            html2canvas:  { scale: 2, backgroundColor: '#0d0d0d', scrollY: 0 },
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+            pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
         };
 
         await html2pdf().set(opt).from(element).save();
