@@ -154,6 +154,16 @@
             box-shadow: 0 0 5px var(--gold);
         }
 
+        /* Prevent Chrome Autofill White Background Glitch */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px #0d0d0d inset !important;
+            -webkit-text-fill-color: #d4af37 !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
         .btn-submit {
             width: 100%;
             background-color: var(--gold);
@@ -394,7 +404,7 @@
     canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
     canvas.addEventListener('touchend', stopDrawing);
 
-    // Form Submission & Auto-Redirect Logic
+    // Form Submission, PDF Attachment & Auto-Redirect Logic
     async function handleFormSubmit(event) {
         event.preventDefault();
         window.scrollTo(0, 0);
@@ -406,20 +416,29 @@
 
         const element = document.getElementById('tc-document');
         const bizName = document.getElementById('bizName').value || 'Trader';
-        
+        const pdfFilename = `TC_Agreement_${bizName.replace(/\s+/g, '_')}.pdf`;
+
         const opt = {
             margin:       [0.2, 0.2, 0.2, 0.2],
-            filename:     `TC_Agreement_${bizName.replace(/\s+/g, '_')}.pdf`,
+            filename:     pdfFilename,
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2, backgroundColor: '#0d0d0d', scrollY: 0 },
             jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
             pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
         };
 
-        await html2pdf().set(opt).from(element).save();
+        // Generate PDF object and trigger user download
+        const worker = html2pdf().set(opt).from(element);
+        await worker.save();
 
+        // Convert generated PDF to Blob for email attachment
+        const pdfBlob = await worker.output('blob');
+        const pdfFile = new File([pdfBlob], pdfFilename, { type: 'application/pdf' });
+
+        // Prepare Form Data including the PDF attachment
         const formData = new FormData(form);
-        
+        formData.append('attachment', pdfFile);
+
         try {
             const response = await fetch(form.action, {
                 method: 'POST',
@@ -430,7 +449,7 @@
                 form.innerHTML = `
                     <div style="text-align: center; padding: 25px;">
                         <h3 style="color: var(--gold); border: none; font-size: 20px; margin-bottom: 10px;">Thank You!</h3>
-                        <p style="color: var(--gold-light); font-size: 15px;">Your signed agreement has been submitted and your PDF copy has been downloaded.</p>
+                        <p style="color: var(--gold-light); font-size: 15px;">Your signed agreement has been submitted and a full copy has been attached to your confirmation email.</p>
                         <p style="color: #fff; margin-top: 15px;">Redirecting back to Giraffe Event Spaces in 5 seconds...</p>
                         <a href="https://giraffeeventspaces.co.uk" class="website-link-btn">Return to Website Now</a>
                     </div>
@@ -439,7 +458,7 @@
                     window.location.href = "https://giraffeeventspaces.co.uk";
                 }, 5000);
             } else {
-                alert('Form submitted, but there was an issue sending the email notification.');
+                alert('Form submitted, but there was an issue sending the email attachment.');
             }
         } catch (error) {
             alert('PDF downloaded! Thank you.');
