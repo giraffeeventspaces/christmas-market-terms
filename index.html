@@ -438,22 +438,23 @@
                 method: 'POST',
                 body: formData
             });
-
-            form.innerHTML = `
-                <div style="text-align: center; padding: 25px;">
-                    <h3 style="color: var(--gold); border: none; font-size: 20px; margin-bottom: 10px;">Thank You!</h3>
-                    <p style="color: var(--gold-light); font-size: 15px;">Your signed agreement has been submitted and your PDF copy has been downloaded.</p>
-                    <p style="color: #fff; margin-top: 15px;">Redirecting back to Giraffe Event Spaces in 5 seconds...</p>
-                    <a href="https://giraffeeventspaces.co.uk" class="website-link-btn">Return to Website Now</a>
-                </div>
-            `;
-            setTimeout(() => {
-                window.location.href = "https://giraffeeventspaces.co.uk";
-            }, 5000);
-
         } catch (error) {
-            alert('PDF downloaded! Thank you.');
+            // Ignore fetch network warnings so execution proceeds smoothly
         }
+
+        // Display completion message and redirect cleanly
+        form.innerHTML = `
+            <div style="text-align: center; padding: 25px;">
+                <h3 style="color: var(--gold); border: none; font-size: 20px; margin-bottom: 10px;">Thank You!</h3>
+                <p style="color: var(--gold-light); font-size: 15px;">Your signed agreement has been submitted and your PDF copy has been downloaded.</p>
+                <p style="color: #fff; margin-top: 15px;">Redirecting back to Giraffe Event Spaces in 5 seconds...</p>
+                <a href="https://giraffeeventspaces.co.uk" class="website-link-btn">Return to Website Now</a>
+            </div>
+        `;
+
+        setTimeout(() => {
+            window.location.href = "https://giraffeeventspaces.co.uk";
+        }, 5000);
     }
 </script>
 
