@@ -220,12 +220,19 @@
         </form>
     </div>
 </div>
-
 <script>
-    function handleFormSubmit(event) {
+    async function handleFormSubmit(event) {
+        event.preventDefault(); // Prevents page from redirecting before PDF downloads
+        
+        const form = event.target;
+        const btn = form.querySelector('.btn-submit');
+        btn.textContent = 'Generating PDF & Submitting...';
+        btn.disabled = true;
+
         const element = document.getElementById('tc-document');
         const bizName = document.getElementById('bizName').value || 'Trader';
         
+        // 1. Generate and Download PDF
         const opt = {
             margin:       0.3,
             filename:     `TC_Agreement_${bizName.replace(/\s+/g, '_')}.pdf`,
@@ -234,9 +241,26 @@
             jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
         };
 
-        html2pdf().set(opt).from(element).save();
+        await html2pdf().set(opt).from(element).save();
+
+        // 2. Submit form data to Web3Forms in background
+        const formData = new FormData(form);
+        
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData
+            });
+            
+            if (response.ok) {
+                form.innerHTML = `<h3 style="color: var(--gold); text-align: center; padding: 20px;">Thank you! Your signed agreement has been submitted and your PDF copy has been downloaded.</h3>`;
+            } else {
+                alert('Form submitted, but there was an issue sending the email notification.');
+            }
+        } catch (error) {
+            alert('PDF downloaded! Thank you.');
+        }
     }
 </script>
-
 </body>
 </html>
