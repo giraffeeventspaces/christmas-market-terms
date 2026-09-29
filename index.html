@@ -138,6 +138,14 @@
             font-size: 14px;
         }
 
+        .help-text {
+            font-size: 11px;
+            color: var(--gold-light);
+            margin-top: -2px;
+            margin-bottom: 6px;
+            font-weight: normal;
+        }
+
         input[type="text"], input[type="date"], input[type="email"] {
             width: 100%;
             padding: 10px;
@@ -146,6 +154,11 @@
             color: var(--gold);
             font-size: 14px;
             border-radius: 4px;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
         }
 
         input:focus {
@@ -231,6 +244,13 @@
 
         .website-link-btn:hover {
             background-color: var(--gold-light);
+        }
+
+        .error-msg {
+            color: #ff4d4d;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
         }
     </style>
 </head>
@@ -331,16 +351,18 @@
             </div>
             
             <div class="form-group">
-                <label>Handwritten Digital Signature:</label>
-                <div class="signature-container">
+                <label>Handwritten Digital Signature (Required):</label>
+                <div class="signature-container" id="sigContainer">
                     <canvas id="sigCanvas" width="700" height="150"></canvas>
                 </div>
                 <button type="button" class="btn-clear" onclick="clearSignature()">Clear Signature</button>
+                <div class="error-msg" id="sigError">Please draw your handwritten signature on the pad above before submitting.</div>
             </div>
 
             <div class="form-group">
                 <label for="sigDate">Date of Agreement:</label>
-                <input type="date" name="Date Signed" id="sigDate" required>
+                <div class="help-text">Click the box below or press Spacebar to open the calendar picker</div>
+                <input type="date" name="Date Signed" id="sigDate" required onclick="this.showPicker && this.showPicker()">
             </div>
 
             <div class="checkbox-group">
@@ -377,6 +399,7 @@
     function startDrawing(e) {
         isDrawing = true;
         hasDrawn = true;
+        document.getElementById('sigError').style.display = 'none';
         const pos = getPos(e);
         ctx.beginPath();
         ctx.moveTo(pos.x, pos.y);
@@ -410,6 +433,15 @@
     // Form Submission Logic
     async function handleFormSubmit(event) {
         event.preventDefault();
+
+        // Enforce signature validation
+        if (!hasDrawn) {
+            const sigError = document.getElementById('sigError');
+            sigError.style.display = 'block';
+            document.getElementById('sigContainer').scrollIntoView({ behavior: 'smooth' });
+            return;
+        }
+
         window.scrollTo(0, 0);
         
         const form = event.target;
@@ -435,8 +467,7 @@
 
         // Submit form data dynamically to Web3Forms
         const formData = new FormData(form);
-        const signatureStatus = hasDrawn ? "YES — Handwritten Signature Drawn" : "NO — Left Blank";
-        formData.append("Handwritten Signature Status", signatureStatus);
+        formData.append("Signature Drawn & Validated", "✅ YES");
 
         try {
             await fetch(form.action, {
