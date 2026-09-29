@@ -316,7 +316,7 @@
             <input type="hidden" name="access_key" value="2148f247-aed1-4cfa-b8f2-bab324522f45">
             <input type="hidden" name="subject" value="Signed T&C Submission — St Paul's Christmas Market">
             <input type="hidden" name="from_name" value="Giraffe Event Spaces T&C Portal">
-            <input type="hidden" name="Handwritten Signature Image" id="hiddenSigInput">
+            <input type="hidden" name="Digital Signature Status" value="Handwritten Signature Captured on PDF Document">
 
             <div class="form-group">
                 <label for="bizName">Trading / Business Name:</label>
@@ -414,10 +414,6 @@
         const btn = form.querySelector('.btn-submit');
         btn.textContent = 'Generating PDF & Submitting...';
         btn.disabled = true;
-
-        // Convert signature canvas to Image Data string for the Web3Forms email
-        const sigDataUrl = canvas.toDataURL("image/png");
-        document.getElementById('hiddenSigInput').value = sigDataUrl;
 
         const element = document.getElementById('tc-document');
         const bizName = document.getElementById('bizName').value || 'Trader';
