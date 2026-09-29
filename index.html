@@ -404,7 +404,7 @@
     canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
     canvas.addEventListener('touchend', stopDrawing);
 
-    // Form Submission, PDF Attachment & Auto-Redirect Logic
+    // Form Submission & Auto-Redirect Logic
     async function handleFormSubmit(event) {
         event.preventDefault();
         window.scrollTo(0, 0);
@@ -427,39 +427,30 @@
             pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
         };
 
-        // Generate PDF object and trigger user download
-        const worker = html2pdf().set(opt).from(element);
-        await worker.save();
+        // Generate PDF and trigger trader download
+        await html2pdf().set(opt).from(element).save();
 
-        // Convert generated PDF to Blob for email attachment
-        const pdfBlob = await worker.output('blob');
-        const pdfFile = new File([pdfBlob], pdfFilename, { type: 'application/pdf' });
-
-        // Prepare Form Data including the PDF attachment
+        // Submit form data to Web3Forms
         const formData = new FormData(form);
-        formData.append('attachment', pdfFile);
-
+        
         try {
-            const response = await fetch(form.action, {
+            await fetch(form.action, {
                 method: 'POST',
                 body: formData
             });
-            
-            if (response.ok) {
-                form.innerHTML = `
-                    <div style="text-align: center; padding: 25px;">
-                        <h3 style="color: var(--gold); border: none; font-size: 20px; margin-bottom: 10px;">Thank You!</h3>
-                        <p style="color: var(--gold-light); font-size: 15px;">Your signed agreement has been submitted and a full copy has been attached to your confirmation email.</p>
-                        <p style="color: #fff; margin-top: 15px;">Redirecting back to Giraffe Event Spaces in 5 seconds...</p>
-                        <a href="https://giraffeeventspaces.co.uk" class="website-link-btn">Return to Website Now</a>
-                    </div>
-                `;
-                setTimeout(() => {
-                    window.location.href = "https://giraffeeventspaces.co.uk";
-                }, 5000);
-            } else {
-                alert('Form submitted, but there was an issue sending the email attachment.');
-            }
+
+            form.innerHTML = `
+                <div style="text-align: center; padding: 25px;">
+                    <h3 style="color: var(--gold); border: none; font-size: 20px; margin-bottom: 10px;">Thank You!</h3>
+                    <p style="color: var(--gold-light); font-size: 15px;">Your signed agreement has been submitted and your PDF copy has been downloaded.</p>
+                    <p style="color: #fff; margin-top: 15px;">Redirecting back to Giraffe Event Spaces in 5 seconds...</p>
+                    <a href="https://giraffeeventspaces.co.uk" class="website-link-btn">Return to Website Now</a>
+                </div>
+            `;
+            setTimeout(() => {
+                window.location.href = "https://giraffeeventspaces.co.uk";
+            }, 5000);
+
         } catch (error) {
             alert('PDF downloaded! Thank you.');
         }
