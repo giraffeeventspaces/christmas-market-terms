@@ -97,6 +97,32 @@
             margin-bottom: 15px;
         }
 
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 20px 0;
+            background: #000;
+            padding: 12px;
+            border: 1px solid var(--gold);
+            border-radius: 4px;
+        }
+
+        .checkbox-group input {
+            margin-top: 3px;
+            accent-color: var(--gold);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            font-size: 13px;
+            color: var(--gold-light);
+            cursor: pointer;
+            line-height: 1.4;
+        }
+
         label {
             display: block;
             margin-bottom: 5px;
@@ -237,8 +263,17 @@
                 <input type="email" name="Trader Email" id="email" required placeholder="e.g. jane@smithscrafts.co.uk">
             </div>
             <div class="form-group">
+                <label for="digitalSig">Signature / Digital Confirmation (Full Legal Name):</label>
+                <input type="text" name="Digital Signature" id="digitalSig" required placeholder="Type full name to sign digitally">
+            </div>
+            <div class="form-group">
                 <label for="sigDate">Date of Agreement:</label>
                 <input type="date" name="Date Signed" id="sigDate" required>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="acceptCheck" name="Terms Accepted" required>
+                <label for="acceptCheck">By submitting the online registration form and ticking this agreement box, I confirm that I have read, understood, and agree to abide by the Terms & Conditions set out in this document.</label>
             </div>
             
             <button type="submit" class="btn-submit">Submit Agreement & Download Copy</button>
