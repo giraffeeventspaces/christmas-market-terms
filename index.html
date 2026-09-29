@@ -316,7 +316,7 @@
             <input type="hidden" name="access_key" value="2148f247-aed1-4cfa-b8f2-bab324522f45">
             <input type="hidden" name="subject" value="Signed T&C Submission — St Paul's Christmas Market">
             <input type="hidden" name="from_name" value="Giraffe Event Spaces T&C Portal">
-            <input type="hidden" name="Signature Status" value="Handwritten Signature Captured directly on downloaded PDF">
+            <input type="hidden" name="Signature Signed" id="sigStatusInput" value="YES — Digitally Confirmed">
 
             <div class="form-group">
                 <label for="bizName">Trading / Business Name:</label>
@@ -359,6 +359,7 @@
     const canvas = document.getElementById('sigCanvas');
     const ctx = canvas.getContext('2d');
     let isDrawing = false;
+    let hasDrawn = false;
 
     ctx.strokeStyle = '#f3e5ab';
     ctx.lineWidth = 2.5;
@@ -376,6 +377,7 @@
 
     function startDrawing(e) {
         isDrawing = true;
+        hasDrawn = true;
         const pos = getPos(e);
         ctx.beginPath();
         ctx.moveTo(pos.x, pos.y);
@@ -394,6 +396,7 @@
 
     function clearSignature() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hasDrawn = false;
     }
 
     canvas.addEventListener('mousedown', startDrawing);
@@ -414,6 +417,10 @@
         const btn = form.querySelector('.btn-submit');
         btn.textContent = 'Generating PDF & Submitting...';
         btn.disabled = true;
+
+        if (hasDrawn) {
+            document.getElementById('sigStatusInput').value = "YES — Handwritten Signature Drawn on Form";
+        }
 
         const element = document.getElementById('tc-document');
         const bizName = document.getElementById('bizName').value || 'Trader';
