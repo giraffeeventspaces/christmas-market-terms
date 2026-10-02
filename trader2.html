@@ -47,6 +47,13 @@
             display: inline-block;
         }
 
+        .logo-header h1 {
+            font-size: 26px;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
         .logo-header h2 {
             font-size: 16px;
             color: var(--gold-light);
@@ -110,7 +117,9 @@
 
 <div class="container" id="tc-document">
     <div class="logo-header">
-        <img src="https://drive.google.com/uc?export=view&id=1xLDpGfjMAkTXpnFP1CkOuUUVew800OJw" alt="Giraffe Event Spaces Ltd Logo" class="company-logo">
+        <!-- Logo Image with fallback -->
+        <img src="logo.png" alt="Giraffe Event Spaces Ltd" class="company-logo" onerror="this.style.display='none'; document.getElementById('company-name-text').style.display='block';">
+        <h1 id="company-name-text" style="display: none;">Giraffe Event Spaces Ltd</h1>
         <h2>The Church Of The Resurrection Christmas Market — Trader Terms & Conditions</h2>
     </div>
 
