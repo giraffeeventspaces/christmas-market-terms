@@ -1,16 +1,9 @@
-To make your document look clean and cohesive, embedding the logo directly as a Base64 image string is the safest method. This guarantees the image loads instantly without depending on external Google Drive links or CORS permissions, and works seamlessly when generating the PDF.
-
-Since the image includes the company name "GIRAFFE EVENT SPACES LTD", the `<h1>` heading has been removed to prevent duplicate text. The logo styling is adjusted so it scales cleanly across both screen and printed pages.
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trader T&Cs — The Church Of The Resurrection Christmas Market</title>
-    <!-- Correct html2pdf.js CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
             --bg-black: #0d0d0d;
@@ -96,37 +89,7 @@ Since the image includes the company name "GIRAFFE EVENT SPACES LTD", the `<h1>`
             font-weight: bold;
         }
 
-        .download-panel {
-            text-align: center;
-            margin-top: 30px;
-            padding: 20px;
-            background-color: var(--card-bg);
-            border: 1px dashed var(--gold);
-            border-radius: 6px;
-        }
-
-        .btn-pdf {
-            background-color: var(--gold);
-            color: #000;
-            font-weight: bold;
-            padding: 14px 28px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-
-        .btn-pdf:hover {
-            background-color: var(--gold-light);
-        }
-
         @media print {
-            .download-panel {
-                display: none;
-            }
             body {
                 padding: 0;
                 background-color: #fff;
@@ -147,8 +110,7 @@ Since the image includes the company name "GIRAFFE EVENT SPACES LTD", the `<h1>`
 
 <div class="container" id="tc-document">
     <div class="logo-header">
-        <!-- Direct image referenced for reliability -->
-        <img src="Gemini_Generated_Image_bykq3wbykq3wbykq.jpg" alt="Giraffe Event Spaces Ltd Logo" class="company-logo">
+        <img src="https://drive.google.com/uc?export=view&id=1xLDpGfjMAkTXpnFP1CkOuUUVew800OJw" alt="Giraffe Event Spaces Ltd Logo" class="company-logo">
         <h2>The Church Of The Resurrection Christmas Market — Trader Terms & Conditions</h2>
     </div>
 
@@ -181,34 +143,7 @@ Since the image includes the company name "GIRAFFE EVENT SPACES LTD", the `<h1>`
         <li><span class="highlight">Public Liability Insurance:</span> All vendors must hold active Public Liability Insurance up to £5M, which must remain valid throughout the entire duration of the market workspace footprint.</li>
         <li><span class="highlight">Cancellations:</span> Cancellations processed within 14 days of the targeted launch layout space remain strictly non-refundable due to pre-allocated operational expenditures.</li>
     </ul>
-
-    <div class="download-panel" id="actionPanel">
-        <button type="button" class="btn-pdf" onclick="generatePDF()">Download Agreement PDF</button>
-    </div>
 </div>
-
-<script>
-    function generatePDF() {
-        const targetDoc = document.getElementById('tc-document');
-        const actionPanel = document.getElementById('actionPanel');
-        
-        actionPanel.style.display = 'none';
-
-        const pdfOptions = {
-            margin: 10,
-            filename: 'Church_of_Resurrection_Market_TC.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, backgroundColor: '#0d0d0d' },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        html2pdf().set(pdfOptions).from(targetDoc).save().then(() => {
-            actionPanel.style.display = 'block';
-        });
-    }
-</script>
 
 </body>
 </html>
-
-```
