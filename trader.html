@@ -1,105 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Giraffe Event Spaces Ltd - Trader Registration</title>
-<style>
-  * { box-sizing: border-box; }
-  body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f4f4f9; color: #222; margin: 0; padding: 10px; font-size: 13px; }
-  .form-container { max-width: 750px; background: #ffffff; margin: 0 auto; padding: 18px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid #e0e0e0; }
-  
-  /* Clean Black Header Bar with Gold Text Only */
-  .header { background-color: #000000; color: #D4AF37; text-align: center; padding: 22px 15px; border-radius: 6px; margin-bottom: 12px; border-bottom: 4px solid #D4AF37; }
-  .header h1 { margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; color: #D4AF37; }
-  .header h2 { margin: 6px 0 0; font-size: 13px; color: #f2e3b6; font-weight: normal; letter-spacing: 1px; text-transform: uppercase; }
-  
-  /* Black Section Titles with Gold Text */
-  .section-title { background-color: #000000; color: #D4AF37; padding: 6px 10px; font-weight: bold; margin-top: 14px; margin-bottom: 8px; border-radius: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; border-left: 5px solid #D4AF37; }
-  
-  /* Form Input Styling & Full-Width Enforcements */
-  .form-group { margin-bottom: 8px; display: flex; flex-direction: column; width: 100%; }
-  .form-group label { font-size: 11px; font-weight: bold; margin-bottom: 3px; color: #222; display: block; }
-  .form-group input, .form-group textarea, .form-group select { width: 100% !important; min-width: 100% !important; max-width: 100% !important; padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; background-color: #fafafa; font-family: inherit; }
-  .form-group input:focus, .form-group textarea:focus { border-color: #000000; outline: none; background-color: #fff; box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.4); }
-  .form-group textarea { resize: vertical; min-height: 50px; }
-  
-  /* Terms Box - Fully Expanded for PDF Generation */
-  .terms-box { background-color: #fafafa; border: 1px solid #dcdcdc; padding: 12px; border-radius: 4px; font-size: 11px; line-height: 1.5; margin-top: 8px; color: #333; height: auto !important; max-height: none !important; overflow: visible !important; }
-  .terms-box strong { color: #000; }
-  
-  /* Checkbox Area */
-  .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-top: 12px; background-color: #fffdf5; padding: 10px; border: 1px solid #e2d29b; border-radius: 4px; width: 100%; }
-  .checkbox-group input[type="checkbox"] { width: 18px !important; min-width: 18px !important; height: 18px !important; margin-top: 2px; cursor: pointer; flex-shrink: 0; }
-  .checkbox-group label { font-size: 12px; color: #222; cursor: pointer; font-weight: bold; line-height: 1.4; display: inline-block; }
-  
-  /* Submit Button - Black with Gold Text */
-  .submit-btn { width: 100%; background-color: #000000; color: #D4AF37; border: 2px solid #D4AF37; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 6px; margin-top: 16px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.2s ease; }
-  .submit-btn:hover { background-color: #1a1a1a; color: #f5e1a4; border-color: #f5e1a4; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trader Registration - Giraffe Event Spaces Ltd</title>
+    <style>
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #0b0b0b; color: #f4f4f4; padding: 40px 20px; }
+        .form-container { max-width: 750px; background: #121212; margin: 0 auto; padding: 30px; border-radius: 8px; border: 1px solid #bf9b30; box-shadow: 0 4px 15px rgba(191,155,48,0.15); }
+        .logo-placeholder { text-align: center; margin-bottom: 20px; font-weight: bold; color: #bf9b30; font-size: 24px; letter-spacing: 2px; }
+        h1 { text-align: center; color: #bf9b30; font-size: 26px; margin-bottom: 5px; text-transform: uppercase; }
+        .subtitle { text-align: center; color: #a1a1a1; font-size: 14px; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
+        h2 { color: #bf9b30; font-size: 18px; border-bottom: 1px solid #bf9b30; padding-bottom: 5px; margin-top: 30px; text-transform: uppercase; }
+        .form-group { margin-bottom: 20px; }
+        .form-row { display: flex; gap: 20px; }
+        .form-row .form-group { flex: 1; }
+        label { display: block; font-weight: bold; margin-bottom: 8px; color: #e0e0e0; font-size: 14px; }
+        input[type="text"], input[type="email"], input[type="tel"], select, textarea { width: 100%; padding: 10px; background: #1a1a1a; border: 1px solid #333; border-radius: 4px; color: #fff; box-sizing: border-box; font-size: 14px; }
+        input:focus, select:focus, textarea:focus { border-color: #bf9b30; outline: none; }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 15px; }
+        .checkbox-group input { margin-top: 3px; }
+        .checkbox-group label { font-weight: normal; color: #c0c0c0; cursor: pointer; }
+        .terms-box { height: 250px; overflow-y: scroll; background: #1a1a1a; border: 1px solid #333; padding: 15px; border-radius: 4px; font-size: 12px; line-height: 1.6; color: #b3b3b3; margin-bottom: 20px; }
+        .terms-box h3 { color: #bf9b30; font-size: 14px; margin-top: 0; }
+        .conditional-section { background: #161616; padding: 15px; border-left: 3px solid #bf9b30; border-radius: 0 4px 4px 0; margin-top: 15px; display: none; }
+        button { background: #bf9b30; color: #000; border: none; padding: 14px 20px; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; text-transform: uppercase; margin-top: 20px; transition: background 0.2s; }
+        button:hover { background: #d4ac3d; }
+        @media (max-width: 600px) { .form-row { flex-direction: column; gap: 0; } }
+    </style>
 </head>
 <body>
 
 <div class="form-container">
-  <div class="header">
-    <h1>Giraffe Event Spaces Ltd</h1>
-    <h2>Trader Registration & Agreement Form</h2>
-  </div>
-
-  <form id="traderForm" action="YOUR_HUBSPOT_FORM_URL" method="GET">
+    <div class="logo-placeholder">GIRAFFE EVENT SPACES LTD</div>
+    <h1>Trader Registration</h1>
+    <div class="subtitle">Business & Event Details</div>
     
-    <div class="section-title">1. Trader / Business Details</div>
-    <div class="form-group"><label>Contact Full Name</label><input type="text" name="contact_name" required></div>
-    <div class="form-group"><label>Contact Telephone Number</label><input type="tel" name="phone" required></div>
-    <div class="form-group"><label>Website / Social Media Handles</label><input type="text" name="social_media"></div>
+    <form action="https://web3forms.com" method="POST">
+        <!-- REQUIRED Web3Forms Access Key -->
+        <input type="hidden" name="access_key" value="PASTE_YOUR_KEY_HERE">
+        <input type="hidden" name="subject" value="New Trader Registration - St Paul's Christmas Market">
 
-    <div class="section-title">2. Trading Information</div>
-    <div class="form-group"><label>Trading Name / Business Name</label><input type="text" name="business_name" required></div>
-    <div class="form-group"><label>Products / Items Description</label><textarea name="products_description" required></textarea></div>
+        <!-- 1. TRADER / BUSINESS DETAILS -->
+        <h2>1. Trader / Business Details</h2>
+        <div class="form-group">
+            <label for="trading_name">Trading / Business Name</label>
+            <input type="text" id="trading_name" name="trading_name" required placeholder="e.g. Smith's Crafts">
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="contact_name">Contact Full Name</label>
+                <input type="text" id="contact_name" name="contact_name" required placeholder="e.g. Jane Smith">
+            </div>
+            <div class="form-group">
+                <label for="contact_email">Contact Email Address</label>
+                <input type="email" id="contact_email" name="contact_email" required placeholder="e.g. jane@example.com">
+            </div>
+        </div>
 
-    <div class="section-title">3. Compliance & Documentation</div>
-    <div class="form-group"><label>Public Liability Insurance (PLI) Details & Expiry</label><input type="text" name="pli_details" required></div>
-    <div class="form-group"><label>Risk Assessment Confirmation</label><textarea name="risk_assessment_info" placeholder="Confirm Risk Assessment status and details"></textarea></div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="contact_phone">Contact Telephone Number</label>
+                <input type="tel" id="contact_phone" name="contact_phone" required placeholder="e.g. 07466125584">
+            </div>
+            <div class="form-group">
+                <label for="website">Website / Social Media (Optional)</label>
+                <input type="text" id="website" name="website_social" placeholder="e.g. ://facebook.com">
+            </div>
+        </div>
 
-    <div class="section-title">4. Food & Beverage Vendors</div>
-    <div class="form-group"><label>Food Hygiene Rating & Registering Local Authority</label><input type="text" name="food_hygiene"></div>
-    <div class="form-group"><label>Allergen & Food Safety Information</label><textarea name="food_allergen_info"></textarea></div>
+        <div class="form-group">
+            <label for="business_address">Business / Trading Address</label>
+            <textarea id="business_address" name="business_address" rows="3" required placeholder="Enter full address details..."></textarea>
+        </div>
 
-    <div class="section-title">5. Power, Structures & Facilities</div>
-    <div class="form-group"><label>Power Requirements (e.g. Watts, 13A / 16A hookup)</label><input type="text" name="power_requirements"></div>
-    <div class="form-group"><label>Equipment / Gazebo / Structure Details</label><textarea name="structure_details"></textarea></div>
+        <!-- 2. EVENT / PITCH DETAILS -->
+        <h2>2. Event / Pitch Details</h2>
+        <div class="form-group">
+            <label for="event_name">Event / Market Name</label>
+            <input type="text" id="event_name" name="event_name" value="St Paul's Church Hall Christmas Market" readonly>
+        </div>
 
-    <div class="section-title">6. Set-Up & Access</div>
-    <div class="form-group"><label>Additional Information for Organiser</label><textarea name="setup_notes"></textarea></div>
+        <div class="form-group">
+            <label for="pitch_info">Preferred / Allocated Pitch Information (if known)</label>
+            <input type="text" id="pitch_info" name="pitch_info" placeholder="Leave blank if unknown">
+        </div>
 
-    <div class="section-title">7. Event Information</div>
-    <div class="form-group"><label>Allocated Pitch Information</label><input type="text" name="pitch_info"></div>
+        <div class="form-group">
+            <label for="selling_description">What will you be selling / providing?</label>
+            <textarea id="selling_description" name="selling_description" rows="3" required placeholder="Provide itemized summary of products..."></textarea>
+        </div>
 
-    <div class="section-title">8. Trader Declaration & Digital Acceptance</div>
-    <div class="terms-box">
-      <strong>GIRAFFE EVENT SPACES LTD - TERMS & CONDITIONS SUMMARY</strong><br>
-      • <strong>Compliance:</strong> Valid Public Liability Insurance (£1,000,000 minimum) and Risk Assessment are mandatory.<br>
-      • <strong>Timings:</strong> Stalls must be set up by 09:30 AM. Pack-down strictly starts at 04:00 PM.<br>
-      • <strong>Vehicles:</strong> Driveway must be clear of vehicles by 09:30 AM prompt for church service access.<br>
-      • <strong>Waste:</strong> Traders are responsible for leaving pitches completely clean. Unremoved commercial waste incurs a £100 cleanup fee.<br>
-      • <strong>Cancellations:</strong> Refunds available within 7 days of payment only. Non-refundable thereafter.
-    </div>
+        <div class="form-group">
+            <label for="special_requirements">Any special requirements or information for the Organiser?</label>
+            <textarea id="special_requirements" name="special_requirements" rows="2"></textarea>
+        </div>
 
-    <div class="form-group" style="margin-top: 12px;"><label>Digital Signature (Type Full Name)</label><input type="text" name="digital_signature" required></div>
-    <div class="form-group"><label>Date of Agreement</label><input type="date" name="agreement_date" required></div>
+        <!-- 3. COMPLIANCE & DOCUMENT SUBMISSION -->
+        <h2>3. Compliance & Document Submission</h2>
+        <p style="font-size: 13px; color: #a1a1a1; margin-bottom: 15px;">
+            The Terms & Conditions require compliance documents to be uploaded through the online registration form, or emailed at least 14 days before the event.
+        </p>
+        
+        <div class="checkbox-group">
+            <input type="checkbox" id="doc_rams" name="declares_rams" value="Yes" required>
+            <label for="doc_rams"><strong>Risk Assessment & Method Statement (RAMS):</strong> I confirm I will provide a written Risk Assessment covering set-up, operational hours, and pack-down.</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="doc_pli" name="declares_pli" value="Yes" required>
+            <label for="doc_pli"><strong>Public Liability Insurance (PLI):</strong> I confirm I hold valid PLI cover with a minimum cover of £1,000,000 valid for the event dates.</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="doc_pat" name="declares_pat" value="Yes">
+            <label for="doc_pat"><strong>PAT Certificate(s):</strong> I confirm all electrical appliances brought onto site carry a valid test certificate (where applicable).</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="doc_gas" name="declares_gas" value="Yes">
+            <label for="doc_gas"><strong>Gas Safe / LPG / CP42 Certificate:</strong> I confirm any gas appliances possess a current safety certificate (where applicable).</label>
+        </div>
 
-    <div class="checkbox-group">
-      <input type="checkbox" id="termsCheck" name="terms_agreed" required>
-      <label for="termsCheck">By submitting this registration form and ticking this box, I confirm that I have read, understood, and agree to abide by the Giraffe Event Spaces Ltd Terms & Conditions.</label>
-    </div>
+        <!-- 4. FOOD & BEVERAGE VENDORS -->
+        <h2>4. Food & Beverage Vendors</h2>
+        <div class="form-group">
+            <label for="food_vendor_select">Are you a food and/or beverage vendor?</label>
+            <select id="food_vendor_select" name="food_and_beverage_vendor" onchange="toggleFoodSection(this.value)" required>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
 
-    <div class="section-title">9. Online Document Uploads</div>
-    <p style="font-size: 12px; color: #444; margin-bottom: 10px;">Clicking the button below will open the secure HubSpot portal to complete registration and submit required PLI & Risk Assessment documents.</p>
+        <div id="food-vendor-section" class="conditional-section">
+            <p style="font-size: 13px; color: #bf9b30; margin-bottom: 15px; font-weight: bold;">FOOD VENDOR DOCUMENTS — ONLINE MANDATE</p>
+            <div class="checkbox-group">
+                <input type="checkbox" id="food_reg" name="food_local_authority_registered" value="Yes">
+                <label for="food_reg">I confirm proof of local authority / food safety registration.</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="food_rating" name="food_hygiene_rating_3_plus" value="Yes">
+                <label for="food_rating">I confirm a valid Food Hygiene Rating score of at least 3.</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="food_cert" name="food_handlers_certified" value="Yes">
+                <label for="food_cert">I confirm food handler hygiene certificates are held for all attending staff.</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="food_allergen" name="food_allergen_matrix_displayed" value="Yes">
+                <label for="food_allergen">I confirm a complete Allergen Matrix will be displayed clearly at my pitch.</label>
+            </div>
+        </div>
 
-    <button type="submit" class="submit-btn">Complete Online Registration & Upload Documents</button>
-  </form>
-</div>
+        <!-- 5. POWER & EQUIPMENT -->
+        <h2>5. Power & Equipment</h2>
+        <div class="form-group">
+            <label for="power_require">Do you require power?</label>
+            <select id="power_require" name="requires_power" required>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
 
-</body>
-</html>
- 
+        <div class="form-group">
