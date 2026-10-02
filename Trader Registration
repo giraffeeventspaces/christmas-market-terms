@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giraffe Event Spaces Ltd - Trader Registration</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f4f4f9; color: #222; margin: 0; padding: 10px; font-size: 13px; }
+  .form-container { max-width: 750px; background: #ffffff; margin: 0 auto; padding: 18px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid #e0e0e0; }
+  
+  /* Clean Black Header Bar with Gold Text Only */
+  .header { background-color: #000000; color: #D4AF37; text-align: center; padding: 22px 15px; border-radius: 6px; margin-bottom: 12px; border-bottom: 4px solid #D4AF37; }
+  .header h1 { margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; color: #D4AF37; }
+  .header h2 { margin: 6px 0 0; font-size: 13px; color: #f2e3b6; font-weight: normal; letter-spacing: 1px; text-transform: uppercase; }
+  
+  /* Black Section Titles with Gold Text */
+  .section-title { background-color: #000000; color: #D4AF37; padding: 6px 10px; font-weight: bold; margin-top: 14px; margin-bottom: 8px; border-radius: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; border-left: 5px solid #D4AF37; }
+  
+  /* Form Input Styling & Full-Width Enforcements */
+  .form-group { margin-bottom: 8px; display: flex; flex-direction: column; width: 100%; }
+  .form-group label { font-size: 11px; font-weight: bold; margin-bottom: 3px; color: #222; display: block; }
+  .form-group input, .form-group textarea, .form-group select { width: 100% !important; min-width: 100% !important; max-width: 100% !important; padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px; background-color: #fafafa; font-family: inherit; }
+  .form-group input:focus, .form-group textarea:focus { border-color: #000000; outline: none; background-color: #fff; box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.4); }
+  .form-group textarea { resize: vertical; min-height: 50px; }
+  
+  /* Terms Box - Fully Expanded for PDF Generation */
+  .terms-box { background-color: #fafafa; border: 1px solid #dcdcdc; padding: 12px; border-radius: 4px; font-size: 11px; line-height: 1.5; margin-top: 8px; color: #333; height: auto !important; max-height: none !important; overflow: visible !important; }
+  .terms-box strong { color: #000; }
+  
+  /* Checkbox Area */
+  .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-top: 12px; background-color: #fffdf5; padding: 10px; border: 1px solid #e2d29b; border-radius: 4px; width: 100%; }
+  .checkbox-group input[type="checkbox"] { width: 18px !important; min-width: 18px !important; height: 18px !important; margin-top: 2px; cursor: pointer; flex-shrink: 0; }
+  .checkbox-group label { font-size: 12px; color: #222; cursor: pointer; font-weight: bold; line-height: 1.4; display: inline-block; }
+  
+  /* Submit Button - Black with Gold Text */
+  .submit-btn { width: 100%; background-color: #000000; color: #D4AF37; border: 2px solid #D4AF37; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 6px; margin-top: 16px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.2s ease; }
+  .submit-btn:hover { background-color: #1a1a1a; color: #f5e1a4; border-color: #f5e1a4; }
+</style>
+</head>
+<body>
+
+<div class="form-container">
+  <div class="header">
+    <h1>Giraffe Event Spaces Ltd</h1>
+    <h2>Trader Registration & Agreement Form</h2>
+  </div>
+
+  <form id="traderForm" action="YOUR_HUBSPOT_FORM_URL" method="GET">
+    
+    <div class="section-title">1. Trader / Business Details</div>
+    <div class="form-group"><label>Contact Full Name</label><input type="text" name="contact_name" required></div>
+    <div class="form-group"><label>Contact Telephone Number</label><input type="tel" name="phone" required></div>
+    <div class="form-group"><label>Website / Social Media Handles</label><input type="text" name="social_media"></div>
+
+    <div class="section-title">2. Trading Information</div>
+    <div class="form-group"><label>Trading Name / Business Name</label><input type="text" name="business_name" required></div>
+    <div class="form-group"><label>Products / Items Description</label><textarea name="products_description" required></textarea></div>
+
+    <div class="section-title">3. Compliance & Documentation</div>
+    <div class="form-group"><label>Public Liability Insurance (PLI) Details & Expiry</label><input type="text" name="pli_details" required></div>
+    <div class="form-group"><label>Risk Assessment Confirmation</label><textarea name="risk_assessment_info" placeholder="Confirm Risk Assessment status and details"></textarea></div>
+
+    <div class="section-title">4. Food & Beverage Vendors</div>
+    <div class="form-group"><label>Food Hygiene Rating & Registering Local Authority</label><input type="text" name="food_hygiene"></div>
+    <div class="form-group"><label>Allergen & Food Safety Information</label><textarea name="food_allergen_info"></textarea></div>
+
+    <div class="section-title">5. Power, Structures & Facilities</div>
+    <div class="form-group"><label>Power Requirements (e.g. Watts, 13A / 16A hookup)</label><input type="text" name="power_requirements"></div>
+    <div class="form-group"><label>Equipment / Gazebo / Structure Details</label><textarea name="structure_details"></textarea></div>
+
+    <div class="section-title">6. Set-Up & Access</div>
+    <div class="form-group"><label>Additional Information for Organiser</label><textarea name="setup_notes"></textarea></div>
+
+    <div class="section-title">7. Event Information</div>
+    <div class="form-group"><label>Allocated Pitch Information</label><input type="text" name="pitch_info"></div>
+
+    <div class="section-title">8. Trader Declaration & Digital Acceptance</div>
+    <div class="terms-box">
+      <strong>GIRAFFE EVENT SPACES LTD - TERMS & CONDITIONS SUMMARY</strong><br>
+      • <strong>Compliance:</strong> Valid Public Liability Insurance (£1,000,000 minimum) and Risk Assessment are mandatory.<br>
+      • <strong>Timings:</strong> Stalls must be set up by 09:30 AM. Pack-down strictly starts at 04:00 PM.<br>
+      • <strong>Vehicles:</strong> Driveway must be clear of vehicles by 09:30 AM prompt for church service access.<br>
+      • <strong>Waste:</strong> Traders are responsible for leaving pitches completely clean. Unremoved commercial waste incurs a £100 cleanup fee.<br>
+      • <strong>Cancellations:</strong> Refunds available within 7 days of payment only. Non-refundable thereafter.
+    </div>
+
+    <div class="form-group" style="margin-top: 12px;"><label>Digital Signature (Type Full Name)</label><input type="text" name="digital_signature" required></div>
+    <div class="form-group"><label>Date of Agreement</label><input type="date" name="agreement_date" required></div>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="termsCheck" name="terms_agreed" required>
+      <label for="termsCheck">By submitting this registration form and ticking this box, I confirm that I have read, understood, and agree to abide by the Giraffe Event Spaces Ltd Terms & Conditions.</label>
+    </div>
+
+    <div class="section-title">9. Online Document Uploads</div>
+    <p style="font-size: 12px; color: #444; margin-bottom: 10px;">Clicking the button below will open the secure HubSpot portal to complete registration and submit required PLI & Risk Assessment documents.</p>
+
+    <button type="submit" class="submit-btn">Complete Online Registration & Upload Documents</button>
+  </form>
+</div>
+
+</body>
+</html>
