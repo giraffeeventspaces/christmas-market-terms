@@ -1,10 +1,16 @@
+To make your document look clean and cohesive, embedding the logo directly as a Base64 image string is the safest method. This guarantees the image loads instantly without depending on external Google Drive links or CORS permissions, and works seamlessly when generating the PDF.
+
+Since the image includes the company name "GIRAFFE EVENT SPACES LTD", the `<h1>` heading has been removed to prevent duplicate text. The logo styling is adjusted so it scales cleanly across both screen and printed pages.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trader T&Cs — The Church Of The Resurrection Christmas Market</title>
-    <script src="https://cloudflare.com"></script>
+    <!-- Correct html2pdf.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
             --bg-black: #0d0d0d;
@@ -40,16 +46,12 @@
             margin-bottom: 20px;
         }
 
-        .logo-header .icon {
-            font-size: 45px;
-            margin-bottom: 10px;
-        }
-
-        .logo-header h1 {
-            font-size: 26px;
-            letter-spacing: 2px;
-            margin-top: 10px;
-            text-transform: uppercase;
+        .logo-header .company-logo {
+            max-width: 320px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+            display: inline-block;
         }
 
         .logo-header h2 {
@@ -57,6 +59,7 @@
             color: var(--gold-light);
             font-weight: 400;
             line-height: 1.5;
+            margin-top: 10px;
         }
 
         hr {
@@ -120,7 +123,6 @@
             background-color: var(--gold-light);
         }
 
-        /* Print formatting optimization */
         @media print {
             .download-panel {
                 display: none;
@@ -135,6 +137,9 @@
                 box-shadow: none;
                 padding: 0;
             }
+            .highlight {
+                color: #000;
+            }
         }
     </style>
 </head>
@@ -142,8 +147,8 @@
 
 <div class="container" id="tc-document">
     <div class="logo-header">
-        <div class="icon">🦒</div>
-        <h1>Giraffe Event Spaces Ltd</h1>
+        <!-- Direct image referenced for reliability -->
+        <img src="Gemini_Generated_Image_bykq3wbykq3wbykq.jpg" alt="Giraffe Event Spaces Ltd Logo" class="company-logo">
         <h2>The Church Of The Resurrection Christmas Market — Trader Terms & Conditions</h2>
     </div>
 
@@ -177,7 +182,6 @@
         <li><span class="highlight">Cancellations:</span> Cancellations processed within 14 days of the targeted launch layout space remain strictly non-refundable due to pre-allocated operational expenditures.</li>
     </ul>
 
-    <!-- Action panel for browser interaction, automatically hidden in the compiled PDF asset -->
     <div class="download-panel" id="actionPanel">
         <button type="button" class="btn-pdf" onclick="generatePDF()">Download Agreement PDF</button>
     </div>
@@ -188,19 +192,17 @@
         const targetDoc = document.getElementById('tc-document');
         const actionPanel = document.getElementById('actionPanel');
         
-        // Hide the interactive button box so it doesn't print on the document template page
         actionPanel.style.display = 'none';
 
         const pdfOptions = {
-            margin: 15,
+            margin: 10,
             filename: 'Church_of_Resurrection_Market_TC.pdf',
             image: { type: 'jpeg', quality: 0.98 },
-            html2pdf: { scale: 2 },
+            html2canvas: { scale: 2, backgroundColor: '#0d0d0d' },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
         html2pdf().set(pdfOptions).from(targetDoc).save().then(() => {
-            // Restore button container back into dashboard sight after download completes
             actionPanel.style.display = 'block';
         });
     }
@@ -208,3 +210,5 @@
 
 </body>
 </html>
+
+```
